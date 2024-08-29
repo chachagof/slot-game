@@ -46,6 +46,7 @@ export class NewComponent extends Component {
         }
 
         this.startButton.node.on(Button.EventType.CLICK, this.slotGameAnimation, this)
+
     }
 
     update(deltaTime: number) {
@@ -80,7 +81,6 @@ export class NewComponent extends Component {
         }
     }
 
-    // 輪盤漸停動畫
     slowDownAnimation(controller: Animation) {
         const animState = controller.getState(controller.defaultClip.name);
         if (animState) {
@@ -101,10 +101,37 @@ export class NewComponent extends Component {
                     },
                     onComplete: () => {
                         controller.pause();
+                        this.snapToClosestNode(controller.node);
                     }
                 })
                 .start();
         }
+    }
+
+    // 將動畫節點對齊到最接近的目標節點位置
+    snapToClosestNode(node: Node) {
+        const targetYPositions = [0, -190, -360, -530, -700, -870]; // 節點的Y坐標都是100
+        const targetNodeName = ['bw', 'br', 'bg', 'bo', 'bb', 'bw']
+
+        // 找到最接近當前Y位置的目標節點
+        const currentY = node.position.y;
+        let closestY = targetYPositions[0];
+        let beanName = targetNodeName[0]
+        let minDiff = Math.abs(currentY - closestY);
+
+        for (let i = 1; i < targetYPositions.length; i++) {
+            const diff = Math.abs(currentY - targetYPositions[i]);
+            if (diff < minDiff) {
+                closestY = targetYPositions[i];
+                beanName = targetNodeName[i]
+                minDiff = diff;
+            }
+        }
+
+        console.log(`The sprite in ${closestY} is: ${beanName}`);
+
+        // 將節點位置調整到最接近的目標節點
+        node.setPosition(node.position.x, closestY, node.position.z);
     }
 
     // 重製輪盤動畫速度
@@ -116,6 +143,8 @@ export class NewComponent extends Component {
             }
         });
     }
+
+
 }
 
 
