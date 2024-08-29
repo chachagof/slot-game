@@ -16,6 +16,9 @@ export class NewComponent extends Component {
     @property(Node)
     private panel3: Node = null
 
+    @property(Node)
+    private endUI: Node = null
+
     private panel1Start: boolean = false
     private panel2Start: boolean = false
     private panel3Start: boolean = false
@@ -23,6 +26,8 @@ export class NewComponent extends Component {
     private panel1Controller: Animation = null;
     private panel2Controller: Animation = null;
     private panel3Controller: Animation = null;
+
+    private slotElement: string[] = []
 
     start() {
         if (!this.startButton) {
@@ -46,7 +51,6 @@ export class NewComponent extends Component {
         }
 
         this.startButton.node.on(Button.EventType.CLICK, this.slotGameAnimation, this)
-
     }
 
     update(deltaTime: number) {
@@ -56,6 +60,8 @@ export class NewComponent extends Component {
     slotGameAnimation() {
         if (!this.panel1Start && !this.panel2Start && !this.panel3Start) {
             console.log("All start")
+            this.endUI.active = false;
+            this.slotElement.length = 0
             this.resetAllPanels();
             this.panel1Controller.play()
             this.panel2Controller.play()
@@ -64,17 +70,14 @@ export class NewComponent extends Component {
             this.panel2Start = true
             this.panel3Start = true
         } else if (this.panel1Start) {
-            // this.panel1Controller.pause()
             this.slowDownAnimation(this.panel1Controller); 4
             console.log("Stop panel1");
             this.panel1Start = false
         } else if (this.panel2Start) {
-            // this.panel2Controller.pause()
             this.slowDownAnimation(this.panel2Controller);
             console.log("Stop panel2");
             this.panel2Start = false
         } else if (this.panel3Start) {
-            // this.panel3Controller.pause()
             console.log("Stop panel3");
             this.slowDownAnimation(this.panel3Controller);
             this.panel3Start = false
@@ -110,7 +113,8 @@ export class NewComponent extends Component {
 
     // 將動畫節點對齊到最接近的目標節點位置
     snapToClosestNode(node: Node) {
-        const targetYPositions = [0, -190, -360, -530, -700, -870]; // 節點的Y坐標都是100
+        const targetYPositions = [-20, -190, -360, -530, -700, -870]
+        // const targetYPositions = [-20, -20, -20, -20, , -20]; // for test
         const targetNodeName = ['bw', 'br', 'bg', 'bo', 'bb', 'bw']
 
         // 找到最接近當前Y位置的目標節點
@@ -128,10 +132,14 @@ export class NewComponent extends Component {
             }
         }
 
+        this.slotElement.push(beanName)
+
         console.log(`The sprite in ${closestY} is: ${beanName}`);
+        console.log(`Now slot element is ${this.slotElement}`)
 
         // 將節點位置調整到最接近的目標節點
         node.setPosition(node.position.x, closestY, node.position.z);
+        this.checkWin(this.slotElement)
     }
 
     // 重製輪盤動畫速度
@@ -144,7 +152,13 @@ export class NewComponent extends Component {
         });
     }
 
-
+    checkWin(slot: string[]) {
+        console.log('now is run checkWin ');
+        if (slot.length === 3) {
+            const win = slot.every(cur => cur === slot[0])
+            if (win) return this.endUI.active = true
+        }
+    }
 }
 
 
