@@ -40,6 +40,9 @@ export class NewComponent extends Component {
             return;
         }
 
+        // 隱藏中獎資訊
+        this.endUI.active = false;
+
         // 取得Panel上的Animation組件
         this.panel1Controller = this.panel1.getComponent(Animation)
         this.panel2Controller = this.panel2.getComponent(Animation)
@@ -134,7 +137,6 @@ export class NewComponent extends Component {
 
         this.slotElement.push(beanName)
 
-        console.log(`The sprite in ${closestY} is: ${beanName}`);
         console.log(`Now slot element is ${this.slotElement}`)
 
         // 將節點位置調整到最接近的目標節點
@@ -153,8 +155,8 @@ export class NewComponent extends Component {
     }
 
     checkWin(slot: string[]) {
-        console.log('now is run checkWin ');
         if (slot.length === 3) {
+            console.log('Now is run checkWin and check slot element');
             const win = slot.every(cur => cur === slot[0])
             if (win) return this.endUI.active = true
         }
