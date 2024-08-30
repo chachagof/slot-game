@@ -89,6 +89,8 @@ export class NewComponent extends Component {
         this.moneyLabel.string = this.playerMoney.toString()
 
         this.startButton.node.on(Button.EventType.CLICK, this.slotGameAnimation, this)
+        this.plusButton.node.on(Button.EventType.CLICK, this.increaseButton, this)
+        this.minusButton.node.on(Button.EventType.CLICK, this.decreaseButton, this)
     }
 
     update(deltaTime: number) {
@@ -197,6 +199,19 @@ export class NewComponent extends Component {
         }
     }
 
+    increaseButton() {
+        if (this.betValue < this.playerMoney) {
+            this.betValue += 1
+            this.betLabel.string = this.betValue.toString()
+        }
+    }
+
+    decreaseButton() {
+        if (this.betValue > 1) {
+            this.betValue -= 1
+            this.betLabel.string = this.betValue.toString()
+        }
+    }
 }
 
 
