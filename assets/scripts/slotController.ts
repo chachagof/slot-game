@@ -54,6 +54,7 @@ export class NewComponent extends Component {
     private panel3Controller: Animation = null;
 
     private slotElement: string[] = []
+    private oddsPanel: {} = { 'bb': 1, 'bw': 1, 'br': 3, 'bg': 5, 'bo': 10 }
 
     start() {
         if (!this.startButton) {
@@ -164,7 +165,7 @@ export class NewComponent extends Component {
     // 將動畫節點對齊到最接近的目標節點位置
     snapToClosestNode(node: Node) {
         const targetYPositions = [-20, -190, -360, -530, -700, -870]
-        // const targetYPositions = [-20, -20, -20, -20, , -20]; // for test
+        // const targetYPositions = [-360, -360, -360, -360, , -360]; // for test
         const targetNodeName = ['bw', 'br', 'bg', 'bo', 'bb', 'bw']
 
         // 找到最接近當前Y位置的目標節點
@@ -207,10 +208,12 @@ export class NewComponent extends Component {
             const win = slot.every(cur => cur === slot[0])
             if (win) {
                 console.log('Player win the money and update UI')
+                // 計算贏錢金額
+                const winMoney: number = this.oddsPanel[slot[0]] * Number(this.betLabel.string)
                 // 更改贏錢金額顯示
-                this.winLabel.string = this.betLabel.string
+                this.winLabel.string = winMoney.toString()
                 // 更改玩家金錢
-                this.moneyLabel.string = (Number(this.moneyLabel.string) + Number(this.betLabel.string) * 2).toString()
+                this.moneyLabel.string = (Number(this.moneyLabel.string) + winMoney).toString()
                 // 顯示中獎UI
                 this.endUI.active = true
                 return
