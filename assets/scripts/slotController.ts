@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Animation, Button, tween } from 'cc';
+import { _decorator, Component, Node, Animation, Button, tween, Label } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('NewComponent')
@@ -6,6 +6,12 @@ export class NewComponent extends Component {
 
     @property(Button)
     private startButton: Button = null
+
+    @property(Button)
+    private plusButton: Button = null
+
+    @property(Button)
+    private minusButton: Button = null
 
     @property(Node)
     private panel1: Node = null
@@ -18,6 +24,26 @@ export class NewComponent extends Component {
 
     @property(Node)
     private endUI: Node = null
+
+    @property(Label)
+    private betLabel: Label = null
+
+    @property(Label)
+    private winLabel: Label = null
+
+    @property(Label)
+    private moneyLabel: Label = null
+
+    @property
+    private betValue: number = 1
+
+    @property
+    private winValue: number = 0
+
+    @property
+    private playerMoney: number = 1000
+
+
 
     private panel1Start: boolean = false
     private panel2Start: boolean = false
@@ -52,6 +78,15 @@ export class NewComponent extends Component {
             console.error('Animation component on Panel is not found.');
             return;
         }
+
+        // 初始化play panel
+        if (!this.betLabel || !this.winLabel || !this.moneyLabel) {
+            console.error('Label component is not found.')
+        }
+
+        this.betLabel.string = this.betValue.toString()
+        this.winLabel.string = this.winValue.toString()
+        this.moneyLabel.string = this.playerMoney.toString()
 
         this.startButton.node.on(Button.EventType.CLICK, this.slotGameAnimation, this)
     }
@@ -161,6 +196,7 @@ export class NewComponent extends Component {
             if (win) return this.endUI.active = true
         }
     }
+
 }
 
 
