@@ -100,15 +100,25 @@ export class NewComponent extends Component {
     slotGameAnimation() {
         if (!this.panel1Start && !this.panel2Start && !this.panel3Start) {
             console.log("All start")
+
+            // 隱藏 jackpot UI 
             this.endUI.active = false;
+            // 清空輪盤元素
             this.slotElement.length = 0
+            // 恢復輪盤動畫速度
             this.resetAllPanels();
+            // 啟動輪盤
             this.panel1Controller.play()
             this.panel2Controller.play()
             this.panel3Controller.play()
+            // 設定輪盤狀態
             this.panel1Start = true
             this.panel2Start = true
             this.panel3Start = true
+            // 扣除下注金額
+            this.moneyLabel.string = (Number(this.moneyLabel.string) - Number(this.betLabel.string)).toString()
+            // 恢復中獎金額顯示
+            this.winLabel.string = '0'
         } else if (this.panel1Start) {
             this.slowDownAnimation(this.panel1Controller); 4
             console.log("Stop panel1");
@@ -193,9 +203,18 @@ export class NewComponent extends Component {
 
     checkWin(slot: string[]) {
         if (slot.length === 3) {
-            console.log('Now is run checkWin and check slot element');
+            console.log('Now is run checkWin and check slot element')
             const win = slot.every(cur => cur === slot[0])
-            if (win) return this.endUI.active = true
+            if (win) {
+                console.log('Player win the money and update UI')
+                // 更改贏錢金額顯示
+                this.winLabel.string = this.betLabel.string
+                // 更改玩家金錢
+                this.moneyLabel.string = (Number(this.moneyLabel.string) + Number(this.betLabel.string) * 2).toString()
+                // 顯示中獎UI
+                this.endUI.active = true
+                return
+            }
         }
     }
 
@@ -212,6 +231,8 @@ export class NewComponent extends Component {
             this.betLabel.string = this.betValue.toString()
         }
     }
+
+
 }
 
 
