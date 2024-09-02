@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "cc378a33-e798-4b5f-9b72-f7f6da4d471c",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "cc378a33-e798-4b5f-9b72-f7f6da4d471c@6c48a",
+      "displayName": "Insufficient funds",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "cc378a33-e798-4b5f-9b72-f7f6da4d471c",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "cc378a33-e798-4b5f-9b72-f7f6da4d471c@f9941",
+      "displayName": "Insufficient funds",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 9,
+        "trimY": 6,
+        "width": 180,
+        "height": 145,
+        "rawWidth": 198,
+        "rawHeight": 157,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -90,
+            -72.5,
+            0,
+            90,
+            -72.5,
+            0,
+            -90,
+            72.5,
+            0,
+            90,
+            72.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            9,
+            151,
+            189,
+            151,
+            9,
+            6,
+            189,
+            6
+          ],
+          "nuv": [
+            0.045454545454545456,
+            0.03821656050955414,
+            0.9545454545454546,
+            0.03821656050955414,
+            0.045454545454545456,
+            0.9617834394904459,
+            0.9545454545454546,
+            0.9617834394904459
+          ],
+          "minPos": [
+            -90,
+            -72.5,
+            0
+          ],
+          "maxPos": [
+            90,
+            72.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "cc378a33-e798-4b5f-9b72-f7f6da4d471c@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "cc378a33-e798-4b5f-9b72-f7f6da4d471c@f9941"
+  }
+}

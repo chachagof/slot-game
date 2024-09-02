@@ -25,6 +25,9 @@ export class NewComponent extends Component {
     @property(Node)
     private endUI: Node = null
 
+    @property(Node)
+    private InsufficientFunds: Node = null
+
     @property(Label)
     private betLabel: Label = null
 
@@ -70,6 +73,9 @@ export class NewComponent extends Component {
         // 隱藏中獎資訊
         this.endUI.active = false;
 
+        // 隱藏餘額不足資訊
+        this.InsufficientFunds.active = false
+
         // 取得Panel上的Animation組件
         this.panel1Controller = this.panel1.getComponent(Animation)
         this.panel2Controller = this.panel2.getComponent(Animation)
@@ -99,7 +105,12 @@ export class NewComponent extends Component {
 
     //老虎機輪盤轉動動畫 
     slotGameAnimation() {
+
         if (!this.panel1Start && !this.panel2Start && !this.panel3Start) {
+            if (Number(this.moneyLabel.string) < 0 || Number(this.betLabel.string) > Number(this.moneyLabel.string)) {
+                console.log('Insufficient funds')
+                return this.InsufficientFunds.active = true
+            }
             console.log("All start")
 
             // 隱藏 jackpot UI 
